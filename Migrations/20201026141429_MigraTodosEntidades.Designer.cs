@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MouraSolutionsWeb.Data;
 
 namespace MouraSolutionsWeb.Migrations
 {
     [DbContext(typeof(MouraExpressContext))]
-    partial class MouraExpressContextModelSnapshot : ModelSnapshot
+    [Migration("20201026141429_MigraTodosEntidades")]
+    partial class MigraTodosEntidades
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MouraSolutionsWeb.Data;
 using MouraSolutionsWeb.Models;
+using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MouraSolutionsWeb.Controllers
 {
+
     public class SystemUsersController : Controller
     {
         private readonly MouraExpressContext _context;
@@ -28,6 +29,16 @@ namespace MouraSolutionsWeb.Controllers
         // GET: SystemUsers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (HttpContext.Session.GetString("Usuario") != null)
+            {
+                ViewBag.Usuario = HttpContext.Session.GetString("Usuario").Trim(' ');
+                ViewBag.Role = HttpContext.Session.GetString("Role").Trim(' ');
+            }
+            else
+            {
+                return RedirectToAction("Login", "SystemUsers");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -46,28 +57,106 @@ namespace MouraSolutionsWeb.Controllers
         // GET: SystemUsers/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("Usuario") != null)
+            {
+                ViewBag.Usuario = HttpContext.Session.GetString("Usuario").Trim(' ');
+                ViewBag.Role = HttpContext.Session.GetString("Role").Trim(' ');
+            }
+            else
+            {
+                return RedirectToAction("Login", "SystemUsers");
+            }
+
             return View();
         }
 
-        // POST: SystemUsers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Usuario,Senha,Status,Role")] SystemUser systemUser)
         {
-            if (ModelState.IsValid)
+            if (HttpContext.Session.GetString("Usuario") != null)
             {
-                _context.Add(systemUser);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewBag.Usuario = HttpContext.Session.GetString("Usuario").Trim(' ');
+                ViewBag.Role = HttpContext.Session.GetString("Role").Trim(' ');
             }
+            else
+            {
+                return RedirectToAction("Login", "SystemUsers");
+            }
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    //systemUser.Role = "Basico";
+                    //systemUser.Status = "Ativo";
+                    _context.Add(systemUser);
+                    await _context.SaveChangesAsync();
+                    ViewBag.Message = "Login " + systemUser.Usuario + " criado com sucesso!";
+                    //return RedirectToAction(nameof(Index));
+                }
+            }
+            catch (Exception)
+            {
+
+                ViewBag.Message = "Não foi possivel criação de usuário, tente novamente, ou contate o Administrador do sistema.";
+            }
+
             return View(systemUser);
         }
 
-        // GET: SystemUsers/Edit/5
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [TempData]
+        public string MensagemNomeClientePedido { get; set; }
+
+        [HttpPost]
+        public IActionResult Login(SystemUser user)
+        {
+
+            SystemUser LoggedInUser = _context.SystemUser
+                .Where(x => x.Usuario == user.Usuario && x.Senha == user.Senha).FirstOrDefault();
+
+
+            if (LoggedInUser == null)
+            {
+                ViewBag.Message = "Usuário ou senha incorretos. Tente novamente";
+                return View();
+            }
+
+            HttpContext.Session.SetString("Usuario", user.Usuario);
+            HttpContext.Session.SetString("Role", LoggedInUser.Role);
+
+            if (LoggedInUser.Role == "Motoboy")
+            {
+                return RedirectToAction("Index", "Clientes");
+            }
+            return RedirectToAction("Index", "Meterial"); //Meterial para teste
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "SystemUsers");
+        }
+
         public async Task<IActionResult> Edit(int? id)
         {
+            if (HttpContext.Session.GetString("Usuario") != null)
+            {
+                ViewBag.Usuario = HttpContext.Session.GetString("Usuario").Trim(' ');
+                ViewBag.Role = HttpContext.Session.GetString("Role").Trim(' ');
+            }
+            else
+            {
+                return RedirectToAction("Login", "SystemUsers");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -88,6 +177,16 @@ namespace MouraSolutionsWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Usuario,Senha,Status,Role")] SystemUser systemUser)
         {
+            if (HttpContext.Session.GetString("Usuario") != null)
+            {
+                ViewBag.Usuario = HttpContext.Session.GetString("Usuario").Trim(' ');
+                ViewBag.Role = HttpContext.Session.GetString("Role").Trim(' ');
+            }
+            else
+            {
+                return RedirectToAction("Login", "SystemUsers");
+            }
+
             if (id != systemUser.Id)
             {
                 return NotFound();
@@ -119,6 +218,16 @@ namespace MouraSolutionsWeb.Controllers
         // GET: SystemUsers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (HttpContext.Session.GetString("Usuario") != null)
+            {
+                ViewBag.Usuario = HttpContext.Session.GetString("Usuario").Trim(' ');
+                ViewBag.Role = HttpContext.Session.GetString("Role").Trim(' ');
+            }
+            else
+            {
+                return RedirectToAction("Login", "SystemUsers");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -139,6 +248,16 @@ namespace MouraSolutionsWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.GetString("Usuario") != null)
+            {
+                ViewBag.Usuario = HttpContext.Session.GetString("Usuario").Trim(' ');
+                ViewBag.Role = HttpContext.Session.GetString("Role").Trim(' ');
+            }
+            else
+            {
+                return RedirectToAction("Login", "SystemUsers");
+            }
+
             var systemUser = await _context.SystemUser.FindAsync(id);
             _context.SystemUser.Remove(systemUser);
             await _context.SaveChangesAsync();
@@ -148,6 +267,22 @@ namespace MouraSolutionsWeb.Controllers
         private bool SystemUserExists(int id)
         {
             return _context.SystemUser.Any(e => e.Id == id);
+        }
+
+
+    }
+    public static class SessionExtensions
+    {
+        public static void Set<T>(this ISession session, string key, T value)
+        {
+            session.SetString(key, JsonConvert.SerializeObject(value));
+        }
+
+        public static T Get<T>(this ISession session, string key)
+        {
+            var value = session.GetString(key);
+            return value == null ? default(T) :
+                                  JsonConvert.DeserializeObject<T>(value);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model MouraSolutionsWeb.Models.SystemUser
+﻿@model MouraExpress.Models.SystemUser
 
 @{
     ViewData["Title"] = "Edit";
@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Senha" class="control-label"></label>
-                <input asp-for="Senha" class="form-control" />
+                <input asp-for="Senha" class="form-control" type="password"/>
                 <span asp-validation-for="Senha" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,14 +34,14 @@
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Salvar alteração" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Listar todos</a>
 </div>
 
 @section Scripts {

@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Views\SystemUsers\Create.cshtml" />
+    <None Include="Views\SystemUsers\Delete.cshtml" />
+    <None Include="Views\SystemUsers\Details.cshtml" />
+    <None Include="Views\SystemUsers\Edit.cshtml" />
+    <None Include="Views\SystemUsers\Index.cshtml" />
+    <None Include="Views\SystemUsers\Login.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
