@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/mourasolutionsserver/databases/MouraSolutions",
+      "type": "mssql.azure",
+      "connectionId": "MouraExpressConnection",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
