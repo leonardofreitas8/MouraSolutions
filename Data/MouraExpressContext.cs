@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MouraSolutionsWeb.Models;
+using MouraSolutionsWeb.Models; 
 
 namespace MouraSolutionsWeb.Data
 {
@@ -16,10 +16,12 @@ namespace MouraSolutionsWeb.Data
         }
 
         public DbSet<Material> Material { get; set; }
+        public DbSet<Material> SystemUser { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Material>().ToTable("Material");
+            modelBuilder.Entity<Material>().ToTable("SystemUser");
 
             base.OnModelCreating(modelBuilder);
         }
