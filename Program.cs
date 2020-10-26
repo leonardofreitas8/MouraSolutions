@@ -30,6 +30,7 @@ namespace MouraSolutionsWeb
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred while seeding the database.");
+                    
                 }
             }
 

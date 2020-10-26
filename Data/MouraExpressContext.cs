@@ -8,7 +8,7 @@ namespace MouraSolutionsWeb.Data
         //public MouraExpressContext()
         //// C# will call base class parameterless constructor by default
         //{
-            
+
         //}
         public MouraExpressContext(DbContextOptions<MouraExpressContext> options) : base(options)
         {

@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "MouraSolutionsWeb20201025194833",
+      "defaultValue": "MouraSolutionsWebTeste",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }
