@@ -1,90 +1,53 @@
-﻿@model IEnumerable<MouraExpress.Models.Pedido>
+﻿@model IEnumerable<MouraSolutionsWeb.Models.SystemUser>
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
-@ViewBag.Usuario
+
 <p>
-    <a asp-action="Create">Criar acesso</a>
+    <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-striped">
-    <thead class="thead-dark">
+<table class="table">
+    <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Cliente)
+                @Html.DisplayNameFor(model => model.Usuario)
+            </th>
+            <th class="hide">
+                @Html.DisplayNameFor(model => model.Senha)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataPedidoRetirada)
+                @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NomeSolicitante)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataRetirada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataEntrega)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ZonaId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.statusPedido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CEP)
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Motoboy.MotoboyId)
-                </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.Obsercao)
+                @Html.DisplayNameFor(model => model.Role)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataRetirada)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataEntrega)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ZonaId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CEP)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Motoboy.MotoboyId)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.Obsercao)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalhar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Senha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>

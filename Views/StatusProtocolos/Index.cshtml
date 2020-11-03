@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MouraSolutionsWeb.Models.StatusProtocolo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@ViewBag.Usuario
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdStatus">Alterar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdStatus">Detalhar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdStatus">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

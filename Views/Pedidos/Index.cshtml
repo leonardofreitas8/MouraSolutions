@@ -1,0 +1,770 @@
+﻿@*@model PaginatedList<MouraExpress.Models.Pedido>*@
+@model ICollection<MouraSolutionsWeb.Models.Pedido>
+
+@{
+    ViewData["Title"] = "Index";
+    var nome = @ViewBag.Usuario;
+    var role = @ViewBag.Role;
+    var QyeryUrgente = @ViewBag.QueryUrgentePaciente;
+    var Conferidos = @ViewBag.TodosConfMoto;
+}
+
+
+<h4>Bem vindo, @ViewBag.Usuario, veja sua lista de pedidos.</h4>
+<p>
+    <a asp-action="Create">
+        <img src="~/Imagens/NewDoc.png" width="30" />
+    </a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            @*Localizar: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]"/>*@
+            <b>Localizar: </b>@Html.RadioButton("option", "Nome")<text> Nome Clinica </text>
+            @Html.RadioButton("option", "Solicitante")<text> Solicitante </text>
+            @Html.RadioButton("option", "Motoboy") <text> Nome do Motoboy </text>
+            @Html.RadioButton("option", "Status") <text> Status do pedido </text>
+            @Html.TextBox("searchString")
+
+
+            <input type="submit" value="Buscar" class="btn btn-success" /> |
+            <a asp-action="Index">| Listar todos</a>
+        </p>   
+    </div>
+</form>
+
+<table class="table table-hover">
+    <thead class="thead-light ">
+        <tr>
+            <th>
+                Pacientes
+            </th>
+            <th>
+                Cliente
+            </th>
+            <th>
+                Motoboy
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data criação</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Solicitante</a>
+            </th>
+            <th>
+                Status
+            </th>
+            @*<th>
+            Entregar dia
+        </th>*@
+            @*<th>
+            Status pedido
+        </th>*@
+            @*<th>
+            CEP
+        </th>*@
+            <th>
+                Observação
+            </th>
+            <th>
+                Zona/Região
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (role == "Motoboy")
+        {
+            @foreach (var item in Model.Where(s => s.statusPedido.Status == "Novo"))
+            {
+
+                if (item.Pacientes != null)
+                {
+                    int countEntradaRealizada = 0;
+
+                    foreach (var paciente in item.Pacientes)
+                    {
+
+                        if (paciente.Protocolo == paciente.ConfMoto)
+                        {
+                            if (paciente.ConfEscritorio == "Retirada realizada")
+                            {
+                                countEntradaRealizada++;
+                            }
+
+                        }
+
+                        int qtdPac = 0;
+
+                        foreach (Paciente paci in item.Pacientes)
+                        {
+                            if (item.Pacientes.Count() > 0)
+                            {
+                                qtdPac++;
+                            }
+                        }
+
+                        if (qtdPac != countEntradaRealizada) // Se haver pacientes incompletos
+                        {
+                            if (paciente.Obs == "Urgente")
+                            {
+                                <tr style="background-color:orangered">
+
+                                    <td>
+                                        @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
+                                        <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
+                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.DataRetirada)
+                                    </td>*@
+                                    @*<td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
+                                    </td>
+                                    @*<td>
+                                    @Html.DisplayFor(modelItem => item.CEP)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Obsercao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+                                    </td>
+
+
+                                </tr>
+                                //Endereço
+                                <tr class="border-bottom">
+                                    @if (item.Cliente.Enderecos != null)
+                                    {
+                                        @foreach (var itemm in item.Cliente.Enderecos)
+                                        {
+                                            <td style="background-color: lightblue">Endereço:</td>
+                                            @*<tr>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => itemm.Tipo_Endereco)
+                                            </td>
+                                            <td>
+                                                <b>@Html.DisplayFor(modelItem => itemm.Rua)</b>
+                                            </td>
+                                            <td>
+                                                <b>@Html.DisplayFor(modelItem => itemm.Numero)</b>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => itemm.Complemento)
+                                            </td>
+                                            <td>
+                                                <b>@Html.DisplayFor(modelItem => itemm.Bairro)</b>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => itemm.CEP)
+                                            </td>
+
+                                            if (ViewBag.Role == "Admin" && ViewBag.Role == "Cliente")
+                                            {
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => itemm.Telefone_Celular)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => itemm.Telefone_Comercial)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => itemm.Telefone_Recado)
+                                                </td>
+
+                                            }
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => itemm.Status)
+                                            </td>
+                                            <td></td>
+                                            @*</tr>*@
+                                        }
+                                    }
+                                </tr>
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
+                                        <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
+                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.DataRetirada)
+                                    </td>*@
+                                    @*<td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
+                                    </td>
+                                    @*<td>
+                                    @Html.DisplayFor(modelItem => item.CEP)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Obsercao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+                                    </td>
+
+
+                                </tr>
+                                //Endereço
+                                <tr class="border-bottom">
+                                    @if (item.Cliente.Enderecos != null)
+                                    {
+                                        @foreach (var itemm in item.Cliente.Enderecos)
+                                        {
+                                            <td style="background-color: lightblue">Endereço:</td>
+                                            @*<tr>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => itemm.Tipo_Endereco)
+                                            </td>
+                                            <td>
+                                                <b>@Html.DisplayFor(modelItem => itemm.Rua)</b>
+                                            </td>
+                                            <td>
+                                                <b>@Html.DisplayFor(modelItem => itemm.Numero)</b>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => itemm.Complemento)
+                                            </td>
+                                            <td>
+                                                <b>@Html.DisplayFor(modelItem => itemm.Bairro)</b>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => itemm.CEP)
+                                            </td>
+
+                                            if (ViewBag.Role == "Admin" && ViewBag.Role == "Cliente")
+                                            {
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => itemm.Telefone_Celular)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => itemm.Telefone_Comercial)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => itemm.Telefone_Recado)
+                                                </td>
+
+                                            }
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => itemm.Status)
+                                            </td>
+                                            <td></td>
+                                            @*</tr>*@
+                                        }
+                                    }
+                                </tr>
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
+                                    <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /> </a> 
+                                    @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NomeSolicitante)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                                </td>*@
+                                @*<td>
+                                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.statusPedido.Status)
+                                </td>
+                                @*<td>
+                                @Html.DisplayFor(modelItem => item.CEP)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Obsercao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+                                </td>
+
+                            </tr>
+                            //Endereço
+                            <tr class="border-bottom">
+                                @if (item.Cliente.Enderecos != null)
+                                {
+                                    @foreach (var itemm in item.Cliente.Enderecos)
+                                    {
+                                        <td style="background-color: lightblue">Endereço:</td>
+                                        @*<tr>*@
+                                        <td>
+                                            @Html.DisplayFor(modelItem => itemm.Tipo_Endereco)
+                                        </td>
+                                        <td>
+                                            <b>@Html.DisplayFor(modelItem => itemm.Rua)</b>
+                                        </td>
+                                        <td>
+                                            <b>@Html.DisplayFor(modelItem => itemm.Numero)</b>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => itemm.Complemento)
+                                        </td>
+                                        <td>
+                                            <b>@Html.DisplayFor(modelItem => itemm.Bairro)</b>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => itemm.CEP)
+                                        </td>
+
+                                        if (ViewBag.Role == "Admin" && ViewBag.Role == "Cliente")
+                                        {
+                                            <td>
+                                                @Html.DisplayFor(modelItem => itemm.Telefone_Celular)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => itemm.Telefone_Comercial)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => itemm.Telefone_Recado)
+                                            </td>
+
+                                        }
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => itemm.Status)
+                                        </td>
+                                        <td></td>
+                                        @*</tr>*@
+                                    }
+                                }
+                            </tr>
+
+                        }
+
+
+                    }
+
+                }
+            }
+        }
+        @if (role == "Cliente")
+        {
+            //.Where(s => s.statusPedido.Status == "Novo")
+
+            @foreach (var item in Model)
+            {
+                if (item.Pacientes != null)
+                {
+
+                    int countEntradaRealizada = 0;
+
+                    foreach (var paciente in item.Pacientes)
+                    {
+
+                        if (paciente.Protocolo == paciente.ConfMoto)
+                        {
+                            if (paciente.ConfEscritorio == "Retirada realizada")
+                            {
+                                countEntradaRealizada++;
+                            }
+
+                        }
+
+                        int qtdPac = 0;
+
+                        foreach (Paciente paci in item.Pacientes)
+                        {
+                            if (item.Pacientes.Count() > 0)
+                            {
+                                qtdPac++;
+                            }
+                        }
+
+                        if (qtdPac != countEntradaRealizada) // Se haver pacientes incompletos
+                        {
+                            if (paciente.Obs == "Urgente") // Verifica se há algum paciente urgente para marcar em vermelho
+                            {
+                                <tr style="background-color:palevioletred">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.DataRetirada)
+                                    </td>*@
+                                    @*<td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
+                                    </td>
+                                    @*<td>
+                                    @Html.DisplayFor(modelItem => item.CEP)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Obsercao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |
+                                        <a asp-action="Details" asp-route-id="@item.Id">Pacientes</a> |
+                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+                                    </td>
+
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.DataRetirada)
+                                    </td*@>
+                                    @*<td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
+                                    </td>
+                                    @*<td>
+                                    @Html.DisplayFor(modelItem => item.CEP)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Obsercao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |
+                                        <a asp-action="Details" asp-route-id="@item.Id">Pacientes</a> |
+                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+                                    </td>
+
+                                </tr>
+                            }
+
+                            break;
+
+                        }
+                        else
+                        {
+                            <tr style="background-color:lightgreen">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NomeSolicitante)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                                </td>*@
+                                @*<td>
+                                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.statusPedido.Status)
+                                </td>
+                                @*<td>
+                                @Html.DisplayFor(modelItem => item.CEP)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Obsercao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |
+                                    <a asp-action="Details" asp-route-id="@item.Id">Pacientes</a> |
+                                    @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+                                </td>
+
+                            </tr>
+
+                        }
+
+
+                    }
+
+                }
+
+            }
+
+        }
+        @if (role == "Admin")
+        {
+
+            @foreach (var item in Model)
+            {
+
+                if (item.Pacientes != null)
+                {
+
+                    int countEntradaRealizada = 0;
+
+                    foreach (var paciente in item.Pacientes)
+                    {
+
+                        if (paciente.Protocolo == paciente.ConfMoto)
+                        {
+                            if (paciente.ConfEscritorio == "Retirada realizada")
+                            {
+                                countEntradaRealizada++;
+                            }
+
+                        }
+
+                        int qtdPac = 0;
+
+                        foreach (Paciente paci in item.Pacientes)
+                        {
+                            if (item.Pacientes.Count() > 0)
+                            {
+                                qtdPac++;
+                            }
+                        }
+
+                        if (qtdPac != countEntradaRealizada) // Se haver pacientes incompletos
+                        {
+                            if (paciente.Obs == "Urgente") // Verifica se há algum paciente urgente para marcar em vermelho
+                            {
+                                <tr style="background-color: palevioletred">
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a>
+                                        <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
+                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.DataRetirada)
+                                    </td>*@
+                                    @*<td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
+                                    </td>
+                                    @*<td>
+                                    @Html.DisplayFor(modelItem => item.CEP)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Obsercao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+                                    </td>
+
+
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> 
+                                        <a asp-action="Details" asp-route-id="@item.Id"> <img width="50" src="~/Imagens/PacienteIco2.jpg" /> </a> 
+                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.DataRetirada)
+                                    </td*@>
+                                    @*<td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
+                                    </td>
+                                    @*<td>
+                                    @Html.DisplayFor(modelItem => item.CEP)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Obsercao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+                                    </td>
+
+
+                                </tr>
+                            }
+
+                            break;
+
+                        }
+                        else
+                        {
+                            <tr style="background-color: lightgreen">
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> 
+                                    <a asp-action="Details" asp-route-id="@item.Id"> <img width="50" src="~/Imagens/PacienteIco2.jpg" /> </a> 
+                                    @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NomeSolicitante)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                                </td>*@
+                                @*<td>
+                                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.statusPedido.Status)
+                                </td>
+                                @*<td>
+                                @Html.DisplayFor(modelItem => item.CEP)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Obsercao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+                                </td>
+
+
+                            </tr>
+
+                        }
+
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </tbody>            
+</table>
+
+
+            @*@{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                }*@
+
+            @*<a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-pageNumber="@(Model.PageIndex - 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="btn btn-primary @prevDisabled">
+                    < Anterior
+                </a>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-pageNumber="@(Model.PageIndex + 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="btn btn-primary @nextDisabled">
+                    Próxima >
+                </a>*@
+
+

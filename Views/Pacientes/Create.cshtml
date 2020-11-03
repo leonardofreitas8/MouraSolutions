@@ -1,0 +1,79 @@
+﻿@model MouraSolutionsWeb.Models.Paciente
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Criar paciente</h1>
+
+<h4>Paciente</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NomePaciente" class="control-label"></label>
+                <input asp-for="NomePaciente" class="form-control" />
+                <span asp-validation-for="NomePaciente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Protocolo" class="control-label"></label>
+                <input asp-for="Protocolo" class="form-control" />
+                <span asp-validation-for="Protocolo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfMoto" class="control-label"></label>
+                <input asp-for="ConfMoto" class="form-control" />
+                <span asp-validation-for="ConfMoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfClinica" class="control-label"></label>
+                <input asp-for="ConfClinica" class="form-control" />
+                <span asp-validation-for="ConfClinica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfEscritorio" class="control-label"></label>
+                <input asp-for="ConfEscritorio" class="form-control" />
+                <span asp-validation-for="ConfEscritorio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tma" class="control-label"></label>
+                <input asp-for="Tma" class="form-control" />
+                <span asp-validation-for="Tma" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Obs" class="control-label"></label>
+                <input asp-for="Obs" class="form-control" />
+                <span asp-validation-for="Obs" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="statusProtocolo" class="control-label"></label>
+                <select asp-for="statusProtocolo" class="form-control" asp-items="ViewBag.StatusProtId"></select>
+            </div>
+            @*//.StatusProtId*@
+            @*asp-items="ViewBag.statusPedidoId"
+        <div class="form-group">
+            <label asp-for="statusProtocolo" class="control-label"></label>
+            <input asp-for="statusProtocolo" class="form-control" />
+            <span asp-validation-for="statusProtocolo" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="PedidoId" class="control-label"></label>
+                <select asp-for="PedidoId" class="form-control" asp-items="ViewBag.PedidoId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Criar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

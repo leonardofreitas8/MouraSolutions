@@ -3,30 +3,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MouraSolutionsWeb.Data;
 using MouraSolutionsWeb.Models;
-using Newtonsoft.Json;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MouraSolutionsWeb.Controllers
 {
-
-    public class SystemUsersController : Controller
+    public class ZonasController : Controller
     {
         private readonly MouraExpressContext _context;
 
-        public SystemUsersController(MouraExpressContext context)
+        public ZonasController(MouraExpressContext context)
         {
             _context = context;
         }
 
-        // GET: SystemUsers
+        // GET: Zonas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.SystemUser.ToListAsync());
+            if (HttpContext.Session.GetString("Usuario") != null)
+            {
+                ViewBag.Usuario = HttpContext.Session.GetString("Usuario").Trim(' ');
+                ViewBag.Role = HttpContext.Session.GetString("Role").Trim(' ');
+            }
+            else
+            {
+                return RedirectToAction("Login", "SystemUsers");
+            }
+
+            return View(await _context.Zona.ToListAsync());
         }
 
-        // GET: SystemUsers/Details/5
+        // GET: Zonas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (HttpContext.Session.GetString("Usuario") != null)
@@ -44,17 +51,17 @@ namespace MouraSolutionsWeb.Controllers
                 return NotFound();
             }
 
-            var systemUser = await _context.SystemUser
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (systemUser == null)
+            var zona = await _context.Zona
+                .FirstOrDefaultAsync(m => m.IdZona == id);
+            if (zona == null)
             {
                 return NotFound();
             }
 
-            return View(systemUser);
+            return View(zona);
         }
 
-        // GET: SystemUsers/Create
+        // GET: Zonas/Create
         public IActionResult Create()
         {
             if (HttpContext.Session.GetString("Usuario") != null)
@@ -70,10 +77,12 @@ namespace MouraSolutionsWeb.Controllers
             return View();
         }
 
-
+        // POST: Zonas/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Usuario,Senha,Status,Role")] SystemUser systemUser)
+        public async Task<IActionResult> Create([Bind("IdZona,ZonaNome,BairrosAtendidos,FaixaCeps")] Zona zona)
         {
             if (HttpContext.Session.GetString("Usuario") != null)
             {
@@ -85,66 +94,16 @@ namespace MouraSolutionsWeb.Controllers
                 return RedirectToAction("Login", "SystemUsers");
             }
 
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    //systemUser.Role = "Basico";
-                    //systemUser.Status = "Ativo";
-                    _context.Add(systemUser);
-                    await _context.SaveChangesAsync();
-                    ViewBag.Message = "Login " + systemUser.Usuario + " criado com sucesso!";
-                    //return RedirectToAction(nameof(Index));
-                }
+                _context.Add(zona);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
-            {
-
-                ViewBag.Message = "Não foi possivel criação de usuário, tente novamente, ou contate o Administrador do sistema.";
-            }
-
-            return View(systemUser);
+            return View(zona);
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [TempData]
-        public string MensagemNomeClientePedido { get; set; }
-
-        [HttpPost]
-        public IActionResult Login(SystemUser user)
-        {
-           
-            SystemUser LoggedInUser = _context.SystemUser
-                    .Where(x => x.Usuario == user.Usuario && x.Senha == user.Senha && x.Status == "Ativo").FirstOrDefault();
-                     
-
-            if (LoggedInUser == null)
-            {
-                ViewBag.Message = "Os dados inseridos estão incorretos, ou seu acesso está inativado.";
-                return View();
-            }
-
-            HttpContext.Session.SetString("Usuario", user.Usuario);
-            HttpContext.Session.SetString("Role", LoggedInUser.Role);
-
-            if (LoggedInUser.Role == "Motoboy")
-            {
-                return RedirectToAction("Index", "Pedidos");
-            }
-            return RedirectToAction("Index", "Pedidos"); //Meterial para teste
-        }
-
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Login", "SystemUsers");
-        }
-
+        // GET: Zonas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (HttpContext.Session.GetString("Usuario") != null)
@@ -162,20 +121,20 @@ namespace MouraSolutionsWeb.Controllers
                 return NotFound();
             }
 
-            var systemUser = await _context.SystemUser.FindAsync(id);
-            if (systemUser == null)
+            var zona = await _context.Zona.FindAsync(id);
+            if (zona == null)
             {
                 return NotFound();
             }
-            return View(systemUser);
+            return View(zona);
         }
 
-        // POST: SystemUsers/Edit/5
+        // POST: Zonas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Usuario,Senha,Status,Role")] SystemUser systemUser)
+        public async Task<IActionResult> Edit(int id, [Bind("IdZona,ZonaNome,BairrosAtendidos,FaixaCeps")] Zona zona)
         {
             if (HttpContext.Session.GetString("Usuario") != null)
             {
@@ -187,7 +146,7 @@ namespace MouraSolutionsWeb.Controllers
                 return RedirectToAction("Login", "SystemUsers");
             }
 
-            if (id != systemUser.Id)
+            if (id != zona.IdZona)
             {
                 return NotFound();
             }
@@ -196,12 +155,12 @@ namespace MouraSolutionsWeb.Controllers
             {
                 try
                 {
-                    _context.Update(systemUser);
+                    _context.Update(zona);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SystemUserExists(systemUser.Id))
+                    if (!ZonaExists(zona.IdZona))
                     {
                         return NotFound();
                     }
@@ -212,10 +171,10 @@ namespace MouraSolutionsWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(systemUser);
+            return View(zona);
         }
 
-        // GET: SystemUsers/Delete/5
+        // GET: Zonas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (HttpContext.Session.GetString("Usuario") != null)
@@ -233,17 +192,17 @@ namespace MouraSolutionsWeb.Controllers
                 return NotFound();
             }
 
-            var systemUser = await _context.SystemUser
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (systemUser == null)
+            var zona = await _context.Zona
+                .FirstOrDefaultAsync(m => m.IdZona == id);
+            if (zona == null)
             {
                 return NotFound();
             }
 
-            return View(systemUser);
+            return View(zona);
         }
 
-        // POST: SystemUsers/Delete/5
+        // POST: Zonas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -258,31 +217,15 @@ namespace MouraSolutionsWeb.Controllers
                 return RedirectToAction("Login", "SystemUsers");
             }
 
-            var systemUser = await _context.SystemUser.FindAsync(id);
-            _context.SystemUser.Remove(systemUser);
+            var zona = await _context.Zona.FindAsync(id);
+            _context.Zona.Remove(zona);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SystemUserExists(int id)
+        private bool ZonaExists(int id)
         {
-            return _context.SystemUser.Any(e => e.Id == id);
-        }
-
-
-    }
-    public static class SessionExtensions
-    {
-        public static void Set<T>(this ISession session, string key, T value)
-        {
-            session.SetString(key, JsonConvert.SerializeObject(value));
-        }
-
-        public static T Get<T>(this ISession session, string key)
-        {
-            var value = session.GetString(key);
-            return value == null ? default(T) :
-                                  JsonConvert.DeserializeObject<T>(value);
+            return _context.Zona.Any(e => e.IdZona == id);
         }
     }
 }

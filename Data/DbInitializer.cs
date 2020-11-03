@@ -10,7 +10,7 @@ namespace MouraSolutionsWeb.Data
     {
         public static void Initialize(MouraExpressContext context)
         {
-            context.Database.EnsureCreated();
+            //context.Database.EnsureCreated();
 
             if (context.Material.Any())
             {

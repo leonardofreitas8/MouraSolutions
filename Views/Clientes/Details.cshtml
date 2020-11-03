@@ -1,0 +1,375 @@
+﻿@model MouraSolutionsWeb.Models.Cliente
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalhes do cliente/clínica:</h1>
+
+<div>
+    <h4>Lista detalhada com os dados do cliente, e pedidos atualmente criados pela clínica.</h4>
+    <hr />
+    @*Todos os pacientes *@
+<dl class="row">
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Nome)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Nome)
+    </dd>
+    @{
+        if (ViewBag.Role == "Admin")
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Telefone)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Telefone)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DataCadastro)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DataCadastro)
+            </dd>
+        }
+    }
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.PerfilCliente)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.PerfilCliente)
+    </dd>
+
+    @{
+        if (ViewBag.Role == "Admin")
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CPF)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CPF)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CNPJ)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CNPJ)
+            </dd>
+        }
+    }
+
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Motoboy)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Motoboy.Nome)
+    </dd>
+
+    <dd class="col-10">
+        @if (Model.Enderecos != null)
+        {
+            <h5>
+                Endereços cadastrados do cliente: @Html.DisplayFor(model => model.Nome)
+            </h5>
+            <table class="table table-striped">
+                <tr>
+                    <th>Tipo Endereço</th>
+                    <th>Rua</th>
+                    <th>Número</th>
+                    <th>Compl.</th>
+                    <th>Bairro</th>
+                    <th>CEP</th>
+                    @{
+                        if (ViewBag.Role == "Admin" && ViewBag.Role == "Cliente")
+                        {
+                            <th>Telefone_Celular</th>
+                            <th>Telefone_Comercial</th>
+                            <th>Telefone_Recado</th>
+                        }
+                    }
+                    <th>Status</th>
+                </tr>
+                @foreach (var item in Model.Enderecos)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo_Endereco)
+                        </td>
+                        <td>
+                            <b>@Html.DisplayFor(modelItem => item.Rua)</b>
+                        </td>
+                        <td>
+                            <b>@Html.DisplayFor(modelItem => item.Numero)</b>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Complemento)
+                        </td>
+                        <td>
+                            <b>@Html.DisplayFor(modelItem => item.Bairro)</b>
+</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CEP)
+                        </td>
+                        @{
+                            if (ViewBag.Role == "Admin" && ViewBag.Role == "Cliente")
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Telefone_Celular)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Telefone_Comercial)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Telefone_Recado)
+                                </td>
+
+                            }
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        }
+    </dd>
+
+    @*Todos os pedidos *@
+
+<dd class="col-10">
+
+    <table class="table">
+        <tr class="table-light">
+            <th>Número do Pedido</th>
+            <th>Criação</th>
+            <th>Autor</th>
+            <th>Data para Retirada</th>
+            <th>Data para Entrega</th>
+            <th>Status</th>
+            <th>Observações</th>
+            <th>Zona</th>
+        </tr>
+        @foreach (var pedido in Model.Pedidos)
+        {
+
+            <tr>
+                <td class="bg-light border">
+                    Pedido n.: <b>@Html.DisplayFor(modelItem => pedido.Id)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => pedido.DataPedidoRetirada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => pedido.NomeSolicitante)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => pedido.DataRetirada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => pedido.DataEntrega)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => pedido.statusPedidoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => pedido.Obsercao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => pedido.Zona)
+                </td>
+                <td>
+                    <a asp-controller="Pedidos" asp-action="Details" asp-route-id="@pedido.Id">Detalhes</a> |
+                    <a asp-controller="Pedidos" asp-action="Edit" asp-route-id="@pedido.Id">Alterar Status</a> |
+                </td>
+            </tr>
+
+            @*Linha com Todos os pacientes *@
+
+
+            <tr class="table-info">
+                <th>Id.Paciente</th>
+                <th>Paciente</th>
+                <th>Protocolo</th>
+                <th>Conf.Moto</th>
+                @*<th>Conf.Clinica</th>*@
+                @*<th>Urgente?</th>*@
+                @*<th>Tma</th>*@
+                @*<th>Status paciente</th>*@
+                <th>Dar baixa</th> @*Campo obs*@
+                <th></th>
+            </tr>
+
+            @using (Html.BeginForm("SalvaAlteraPaciente", "Pacientes", FormMethod.Post))
+            {
+
+
+                List<Paciente> pacientes = new List<Paciente>();
+
+                pacientes = pedido.Pacientes;
+
+
+
+                <tbody>
+                    @if (pacientes != null)
+                    {
+
+                        for (int i = 0; i < pacientes.Count(); i++)
+                        {
+                            <tr id="tr" style='background-color: @(pedido.Pacientes[i].ConfMoto == pedido.Pacientes[i].Protocolo ? "#e5fbe5" : "#f8d2d2");'>
+                                <td>
+                                    @Html.TextBoxFor(x => pacientes[i].IdPaciente)
+                                </td>
+                                <td>
+                                    @Html.DisplayTextFor(x => pacientes[i].NomePaciente)
+                                </td>
+                                <td>
+                                    @Html.DisplayTextFor(x => pacientes[i].Protocolo)
+
+                                <td id="resultado">
+                                    @Html.TextBoxFor(x => pacientes[i].ConfMoto)                                    
+                                </td>
+                                @*<td>
+                                    @Html.TextBoxFor(x => pacientes[i].ConfClinica)
+                                </td>*@
+                                @*<td>                                    
+                                    @Html.TextBoxFor(x => pacientes[i].ConfEscritorio)
+                                </td>*@
+                                @*<td>
+                                    @Html.HiddenFor(x => pacientes[i].Tma)
+                                </td>*@
+                                @*<td>
+                                    @Html.TextBoxFor(x => pacientes[i].ConfEscritorio)
+                                </td>*@
+                                <td>
+                                    @Html.TextBoxFor(x => pacientes[i].Obs)
+                                </td>
+                            </tr>
+
+                        }
+                        <tr>
+                            <td colspan="4">
+                                <input type="submit" class="btn-success" value="Confirmar" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+
+            @using (Html.BeginForm("DecoderQRCode", "Clientes", FormMethod.Post))
+            {
+    <tr>
+        <td>
+            @*<input type="submit" class="btn-success" value="Ler" />*@
+        </td>
+    </tr>
+                
+    
+                    
+            }
+
+        }
+
+    </table>
+
+    
+
+    </dd>
+</dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ClienteId">Alterar</a> |
+    <a asp-action="Index">Voltar para lista</a>
+</div>
+@*<video id="preview"></video>
+    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>*@
+
+@*<script>
+
+        let scanner = new Instascan.scanner(
+            {
+                video: document.getElementById('preview')
+            }
+        );
+
+        scanner.addListner('scan', function (content) {
+            alert('Escaneou o conteúdo corretamente' + content);
+            document.getElementById('resultado').inputMode = content;
+            window.open(content, "_blank");
+        });
+
+        Instascan.Camera.getCameras().then(cameras => {
+            if (cameras.lenth() > 0) {
+                scanner.start(cameras[0]);
+            } else {
+                console.error("Não existe camera no dispositivo");
+            }
+        });
+
+    </script>*@
+
+@*<div id="camera"></div>*@
+
+
+<script src="~/js/quagga.min.js">
+
+</script>
+
+@*<script>
+    Quagga.init({
+        inputStream: {
+            name: "Live",
+            type: "LiveStream",
+            target: document.querySelector('#camera')    // Or '#yourElement' (optional)
+        },
+        decoder: {
+            readers: ["code_39_reader"]/*["code_128_reader"]*/
+        }
+    }, function (err) {
+        if (err) {
+            console.log(err);
+            return
+        }
+        console.log("Initialization finished. Ready to start");
+        Quagga.start();
+    });
+
+    //Quagga.onDetected(function (data) {
+    //    var code = data.codeResult.code;
+    //    document.getElementById('resultado').value = code;
+    //});
+
+    Quagga.onDetected(function (data) {
+
+        console.log(data);
+
+        document.getElementById('resultado').inputMode = data.codeResult.code;
+
+        //var val = data.codeResult.code;
+        //document.getElementById('resultado').textContent = val;
+
+        //var elemento = document.getElementById('resultado');
+        //var texto = elemento.innerText || elemento.textContent;
+        //elemento.innerHTML = texto;
+
+        //var node = document.createElement('INPUT')
+        //var textNode = document.createTextNode()
+        //node.appendChild(textNode);
+        //document.getElementById("resultado").appendChild(node);
+
+
+        //function update() {
+        //    var code_id_value = document.getElementById("resultado").innertext;
+        //    document.getElementById("resultado").value = code_id_value;
+        //}
+
+
+    });
+</script>*@
+
+
+

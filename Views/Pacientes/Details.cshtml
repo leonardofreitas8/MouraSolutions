@@ -1,0 +1,73 @@
+﻿@model MouraSolutionsWeb.Models.Paciente
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <h4>Paciente</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NomePaciente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NomePaciente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Protocolo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Protocolo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ConfMoto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ConfMoto)
+        </dd>
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ConfClinica)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ConfClinica)
+        </dd>*@
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ConfEscritorio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ConfEscritorio)
+        </dd>*@
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tma)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tma)
+        </dd>*@
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Obs)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Obs)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.statusProtocolo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.statusProtocolo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.pedido)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.pedido.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    |<a asp-action="Edit" asp-route-id="@Model.IdPaciente">
+<img src="~/Imagens/pacienteIco.jpg"  width="30"/></a>|
+    <a asp-action="Index">Voltar para lista</a>
+</div>

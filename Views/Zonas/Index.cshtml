@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MouraSolutionsWeb.Models.Zona>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Criar novo registro</a>
+</p>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ZonaNome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BairrosAtendidos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaixaCeps)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZonaNome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BairrosAtendidos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaixaCeps)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdZona">Alterar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdZona">Detalhar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdZona">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

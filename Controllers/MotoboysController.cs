@@ -1,32 +1,41 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MouraSolutionsWeb.Data;
 using MouraSolutionsWeb.Models;
-using Newtonsoft.Json;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MouraSolutionsWeb.Controllers
 {
-
-    public class SystemUsersController : Controller
+    public class MotoboysController : Controller
     {
         private readonly MouraExpressContext _context;
 
-        public SystemUsersController(MouraExpressContext context)
+        public MotoboysController(MouraExpressContext context)
         {
             _context = context;
         }
 
-        // GET: SystemUsers
+        // GET: Motoboys
         public async Task<IActionResult> Index()
         {
-            return View(await _context.SystemUser.ToListAsync());
+            if (HttpContext.Session.GetString("Usuario") != null)
+            {
+                ViewBag.Usuario = HttpContext.Session.GetString("Usuario").Trim(' ');
+                ViewBag.Role = HttpContext.Session.GetString("Role").Trim(' ');
+            }
+            else
+            {
+                return RedirectToAction("Login", "SystemUsers");
+            }
+
+            var mouraExpressContext = _context.Motoboy.Include(m => m.Zona);
+            return View(await mouraExpressContext.ToListAsync());
         }
 
-        // GET: SystemUsers/Details/5
+        // GET: Motoboys/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (HttpContext.Session.GetString("Usuario") != null)
@@ -44,17 +53,18 @@ namespace MouraSolutionsWeb.Controllers
                 return NotFound();
             }
 
-            var systemUser = await _context.SystemUser
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (systemUser == null)
+            var motoboy = await _context.Motoboy
+                .Include(m => m.Zona)
+                .FirstOrDefaultAsync(m => m.MotoboyId == id);
+            if (motoboy == null)
             {
                 return NotFound();
             }
 
-            return View(systemUser);
+            return View(motoboy);
         }
 
-        // GET: SystemUsers/Create
+        // GET: Motoboys/Create
         public IActionResult Create()
         {
             if (HttpContext.Session.GetString("Usuario") != null)
@@ -67,13 +77,18 @@ namespace MouraSolutionsWeb.Controllers
                 return RedirectToAction("Login", "SystemUsers");
             }
 
+            PopulateZonaId();
+            //ViewData["ZonaId"] = new SelectList(_context.Zona, "IdZona", "IdZona");
+
             return View();
         }
 
-
+        // POST: Motoboys/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Usuario,Senha,Status,Role")] SystemUser systemUser)
+        public async Task<IActionResult> Create([Bind("MotoboyId,Nome,Sobrenome,TeelefoneFixo,TeelefoneCelular,Veiculo,Placa,DataEntrada,DataSaida,Status,ZonaId")] Motoboy motoboy)
         {
             if (HttpContext.Session.GetString("Usuario") != null)
             {
@@ -85,66 +100,18 @@ namespace MouraSolutionsWeb.Controllers
                 return RedirectToAction("Login", "SystemUsers");
             }
 
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    //systemUser.Role = "Basico";
-                    //systemUser.Status = "Ativo";
-                    _context.Add(systemUser);
-                    await _context.SaveChangesAsync();
-                    ViewBag.Message = "Login " + systemUser.Usuario + " criado com sucesso!";
-                    //return RedirectToAction(nameof(Index));
-                }
+                _context.Add(motoboy);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
-            {
-
-                ViewBag.Message = "Não foi possivel criação de usuário, tente novamente, ou contate o Administrador do sistema.";
-            }
-
-            return View(systemUser);
+            PopulateZonaId();
+            //ViewData["ZonaId"] = new SelectList(_context.Zona, "IdZona", "IdZona", motoboy.ZonaId);
+            return View(motoboy);
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [TempData]
-        public string MensagemNomeClientePedido { get; set; }
-
-        [HttpPost]
-        public IActionResult Login(SystemUser user)
-        {
-           
-            SystemUser LoggedInUser = _context.SystemUser
-                    .Where(x => x.Usuario == user.Usuario && x.Senha == user.Senha && x.Status == "Ativo").FirstOrDefault();
-                     
-
-            if (LoggedInUser == null)
-            {
-                ViewBag.Message = "Os dados inseridos estão incorretos, ou seu acesso está inativado.";
-                return View();
-            }
-
-            HttpContext.Session.SetString("Usuario", user.Usuario);
-            HttpContext.Session.SetString("Role", LoggedInUser.Role);
-
-            if (LoggedInUser.Role == "Motoboy")
-            {
-                return RedirectToAction("Index", "Pedidos");
-            }
-            return RedirectToAction("Index", "Pedidos"); //Meterial para teste
-        }
-
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Login", "SystemUsers");
-        }
-
+        // GET: Motoboys/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (HttpContext.Session.GetString("Usuario") != null)
@@ -162,20 +129,22 @@ namespace MouraSolutionsWeb.Controllers
                 return NotFound();
             }
 
-            var systemUser = await _context.SystemUser.FindAsync(id);
-            if (systemUser == null)
+            var motoboy = await _context.Motoboy.FindAsync(id);
+            if (motoboy == null)
             {
                 return NotFound();
             }
-            return View(systemUser);
+            PopulateZonaId();
+            //ViewData["ZonaId"] = new SelectList(_context.Zona, "IdZona", "IdZona", motoboy.ZonaId);
+            return View(motoboy);
         }
 
-        // POST: SystemUsers/Edit/5
+        // POST: Motoboys/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Usuario,Senha,Status,Role")] SystemUser systemUser)
+        public async Task<IActionResult> Edit(int id, [Bind("MotoboyId,Nome,Sobrenome,TeelefoneFixo,TeelefoneCelular,Veiculo,Placa,DataEntrada,DataSaida,Status,ZonaId")] Motoboy motoboy)
         {
             if (HttpContext.Session.GetString("Usuario") != null)
             {
@@ -187,7 +156,7 @@ namespace MouraSolutionsWeb.Controllers
                 return RedirectToAction("Login", "SystemUsers");
             }
 
-            if (id != systemUser.Id)
+            if (id != motoboy.MotoboyId)
             {
                 return NotFound();
             }
@@ -196,12 +165,12 @@ namespace MouraSolutionsWeb.Controllers
             {
                 try
                 {
-                    _context.Update(systemUser);
+                    _context.Update(motoboy);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SystemUserExists(systemUser.Id))
+                    if (!MotoboyExists(motoboy.MotoboyId))
                     {
                         return NotFound();
                     }
@@ -212,10 +181,12 @@ namespace MouraSolutionsWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(systemUser);
+            PopulateZonaId();
+            //ViewData["ZonaId"] = new SelectList(_context.Zona, "IdZona", "IdZona", motoboy.ZonaId);
+            return View(motoboy);
         }
 
-        // GET: SystemUsers/Delete/5
+        // GET: Motoboys/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (HttpContext.Session.GetString("Usuario") != null)
@@ -233,17 +204,18 @@ namespace MouraSolutionsWeb.Controllers
                 return NotFound();
             }
 
-            var systemUser = await _context.SystemUser
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (systemUser == null)
+            var motoboy = await _context.Motoboy
+                .Include(m => m.Zona)
+                .FirstOrDefaultAsync(m => m.MotoboyId == id);
+            if (motoboy == null)
             {
                 return NotFound();
             }
 
-            return View(systemUser);
+            return View(motoboy);
         }
 
-        // POST: SystemUsers/Delete/5
+        // POST: Motoboys/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -258,31 +230,24 @@ namespace MouraSolutionsWeb.Controllers
                 return RedirectToAction("Login", "SystemUsers");
             }
 
-            var systemUser = await _context.SystemUser.FindAsync(id);
-            _context.SystemUser.Remove(systemUser);
+            var motoboy = await _context.Motoboy.FindAsync(id);
+            _context.Motoboy.Remove(motoboy);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SystemUserExists(int id)
+        private bool MotoboyExists(int id)
         {
-            return _context.SystemUser.Any(e => e.Id == id);
+            return _context.Motoboy.Any(e => e.MotoboyId == id);
         }
 
-
-    }
-    public static class SessionExtensions
-    {
-        public static void Set<T>(this ISession session, string key, T value)
+        public void PopulateZonaId(object selectedCliente2 = null)
         {
-            session.SetString(key, JsonConvert.SerializeObject(value));
-        }
+            var clienteQuery = from c in _context.Zona
+                               orderby c.ZonaNome
+                               select c;
 
-        public static T Get<T>(this ISession session, string key)
-        {
-            var value = session.GetString(key);
-            return value == null ? default(T) :
-                                  JsonConvert.DeserializeObject<T>(value);
+            ViewBag.ZonaId = new SelectList(clienteQuery.AsNoTracking(), "IdZona", "ZonaNome", selectedCliente2);
         }
     }
 }

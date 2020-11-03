@@ -1,0 +1,39 @@
+﻿@model MouraSolutionsWeb.Models.Zona
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Apagar</h1>
+
+<h3>Certeza que deseja tentar apagar o registro?</h3>
+<div>
+    <h4>Zona</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ZonaNome)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ZonaNome)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BairrosAtendidos)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BairrosAtendidos)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FaixaCeps)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FaixaCeps)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdZona" />
+        <input type="submit" value="Apagar" class="btn btn-danger" /> |
+        <a asp-action="Index">Voltar para lista</a>
+    </form>
+</div>

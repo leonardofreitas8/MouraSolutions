@@ -1,0 +1,220 @@
+﻿@model IEnumerable<MouraSolutionsWeb.Models.Endereco>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Formulário de criação de endereço para Cliente/Clínica</h4>
+<h6>Obs:. Uma Clínica/Cliente pode ter um ou mais endereços com Status de principal ou alternativo</h6>
+<p>
+    <a asp-action="Create">        
+        <img src="~/Imagens/icoCriarNovo.png" width="30"/></a>
+</p>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo_Endereco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rua)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bairro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CEP)
+            </th>
+            <th>               
+                @Html.DisplayNameFor(model => model.Complemento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Zona_Setor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome_Contato)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefone_Comercial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefone_Celular)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefone_Recado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Obs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data_Registro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var nome = @ViewBag.Usuario;
+            var role = @ViewBag.Role;
+        }
+
+        @if (role != "Admin" && role == "Cliente")
+        {
+            @foreach (var item in Model.Where(n => n.Cliente.Nome == nome))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo_Endereco)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rua)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Numero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bairro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CEP)
+                    </td>
+                    <td>
+                        <a href=@Html.DisplayFor(modelItem => item.Complemento)>Rota</a>                        
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Zona_Setor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome_Contato)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefone_Comercial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefone_Celular)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefone_Recado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Obs)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Data_Registro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                    </td>
+                    <td>
+                        @{
+                            if (role == "Admin")
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.IdEndereco">Modificar</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdEndereco">Deletar</a>
+                            }
+                        }
+                        <a asp-action="Details" asp-route-id="@item.IdEndereco"><img  width="30" src="~/Imagens/cao.png" /></a>
+                        
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo_Endereco)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rua)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Numero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bairro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CEP)
+                    </td>
+                    <td>
+                        <a href=@Html.DisplayFor(modelItem => item.Complemento)>Rota</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Zona_Setor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome_Contato)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefone_Comercial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefone_Celular)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefone_Recado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Obs)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Data_Registro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cliente.ClienteId)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdEndereco">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.IdEndereco">Details</a> |
+                        @*<a asp-action="Delete" asp-route-id="@item.IdEndereco">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

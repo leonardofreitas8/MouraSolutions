@@ -1,0 +1,85 @@
+﻿@model IEnumerable<MouraSolutionsWeb.Models.Paciente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<p>
+    <a asp-action="Create">Criar novo</a>
+</p>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomePaciente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Protocolo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConfMoto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConfClinica)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.ConfEscritorio)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Tma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Obs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.statusProtocolo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pedido)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomePaciente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Protocolo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConfMoto)                    
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConfClinica)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.ConfEscritorio)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tma)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Obs)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.statusProtocolo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.pedido.Id)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdPaciente">Alterar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdPaciente">Detalhar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdPaciente">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

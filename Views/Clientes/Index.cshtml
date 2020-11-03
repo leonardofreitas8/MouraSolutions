@@ -1,0 +1,125 @@
+﻿@model IEnumerable<MouraSolutionsWeb.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataCadastro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PerfilCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CPF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CNPJ)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Motoboy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            var nomeMotoboy = @ViewBag.Usuario;
+            var role = @ViewBag.Role;
+        }
+
+
+
+        @if (role != "Admin")
+        {
+
+            @foreach (var cliente in Model.Where(n => n.Motoboy.Nome.TrimEnd() == nomeMotoboy))
+            {
+                <tr>
+                    <td>
+                        <b>@Html.DisplayFor(modelItem => cliente.Nome)</b>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.Telefone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.DataCadastro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.PerfilCliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.CPF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.CNPJ)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.Motoboy.Nome)
+                    </td>
+
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@cliente.ClienteId">Edit</a> |*@
+                        <a asp-action="Details" asp-route-id="@cliente.ClienteId">Detalhes</a> |
+                        @*<a asp-action="Delete" asp-route-id="@cliente.ClienteId">Delete</a>*@
+                    </td>
+                </tr>
+    
+            }
+        }
+        else
+        {
+            @foreach (var cliente in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.Telefone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.DataCadastro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.PerfilCliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.CPF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.CNPJ)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => cliente.Motoboy.Nome)
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@cliente.ClienteId">Alterar</a> |
+                        <a asp-action="Details" asp-route-id="@cliente.ClienteId">Detalhar</a> |
+                        <a asp-action="Delete" asp-route-id="@cliente.ClienteId">Deletar</a>
+                    </td>
+                </tr>
+            }
+
+        }
+
+    </tbody>
+</table>

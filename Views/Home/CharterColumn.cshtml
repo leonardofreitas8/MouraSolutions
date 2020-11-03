@@ -1,0 +1,33 @@
+﻿@model IEnumerable<MouraSolutionsWeb.Models.MouraViewModels.GrupoPedidosPorData>
+
+
+@{ 
+    ViewData["Title"] = "Números";
+}
+
+<h2>Quantidade de Retiradas por dia:</h2>
+<table class="container border table-striped">
+    <tr>
+        <th>
+            Datas de Pedidos
+        </th>
+        
+        <th>
+            Quantidades
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PedidosCriacao)    
+            </td>
+            
+            <td>
+                @item.QtdPedidos
+            </td>
+        </tr>
+
+    }
+</table>
