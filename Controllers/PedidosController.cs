@@ -105,7 +105,7 @@ namespace MouraExpress.Controllers
                 .Include(p => p.Cliente).ThenInclude(p => p.Enderecos)
                         .ThenInclude(p => p.Cliente.Motoboy)
                     .Include(p => p.Zona)
-                    .Include(p => p.statusPedido);
+                    .Include(p => p.statusPedido);                
 
                 pedidos = pedidos.Where(x => x.Cliente.Motoboy.Nome == searchString);
                 return View(pedidos.ToList());
@@ -262,7 +262,7 @@ namespace MouraExpress.Controllers
                                select c;
 
             ViewBag.ZonaId = new SelectList(clienteQuery.AsNoTracking(), "IdZona", "ZonaNome", selectedCliente2);
-        }
+        }               
 
         public void StatusPedidoId(object selectedCliente3 = null)
         {
@@ -299,7 +299,18 @@ namespace MouraExpress.Controllers
 
         public ActionResult PacienteMethod([Bind("Pacientes")] Pedido pedido)
         {
-            pedido.Pacientes.Add(new Paciente());
+            int ProtocoloNulo = 0;
+            foreach (var pac in pedido.Pacientes)
+            {
+                if (pac.Protocolo == null && pac.NomePaciente == null)
+                {
+                    ProtocoloNulo++;
+                }
+            }
+            if (ProtocoloNulo == 0)
+            {
+                pedido.Pacientes.Add(new Paciente());                
+            }
             return PartialView("Pacientes", pedido);
         }
 
@@ -473,10 +484,7 @@ namespace MouraExpress.Controllers
             return _context.Pedido.Any(e => e.Id == id);
         }
 
-
-
     }
-
 
 }
 

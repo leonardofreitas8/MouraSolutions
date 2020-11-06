@@ -166,47 +166,38 @@ namespace MouraSolutionsWeb.Controllers
             //StatusProtId();
             if (pacientes.Count() != 0)
             {
-                int countEntradaRealizada = 0;
-                              
-
                 foreach (Paciente pac in pacientes)
-                {
-                    Paciente paciente = _context.Paciente.Find(pac.IdPaciente);
-                    //paciente.NomePaciente = pac.NomePaciente;
-                    paciente.Protocolo = pac.Protocolo;
-                    paciente.ConfMoto = pac.ConfMoto;
-                    paciente.ConfClinica = pac.ConfClinica;
-                    paciente.ConfEscritorio = pac.ConfEscritorio;
+                {                    
+                        Paciente paciente = _context.Paciente.Find(pac.IdPaciente);
+                        //paciente.NomePaciente = pac.NomePaciente;
+                        paciente.Protocolo = pac.Protocolo;
+                        paciente.ConfMoto = pac.ConfMoto;
+                        paciente.ConfClinica = pac.ConfClinica;
+                        paciente.ConfEscritorio = pac.ConfEscritorio;
+                        paciente.Tma = pac.Tma; // hora e dia recebimento motoboy
+                        paciente.Status = pac.Status; // hora e dia recebimento clinica
                     paciente.Obs = pac.Obs;
 
-                    if (paciente.Protocolo == paciente.ConfMoto)
-                    {
-                        paciente.ConfEscritorio = "Retirada realizada";
-                        countEntradaRealizada ++;
-                    }
+                        if (paciente.Protocolo == paciente.ConfMoto)
+                        {
+                            paciente.ConfEscritorio = "Retirada realizada";
+                            paciente.Tma = DateTime.Now;
+                        
+                        }
+                        if (paciente.Protocolo == paciente.ConfMoto &&
+                            paciente.Protocolo == paciente.ConfClinica &&
+                            paciente.ConfMoto == paciente.ConfClinica)
+                        {
+                            paciente.ConfEscritorio = "Confirmado Lab.";
+                            paciente.DataCheckLab = DateTime.Now;
 
+                    }   
+
+                        _context.SaveChanges();
+                                                            
                 }
-                
-                _context.SaveChanges();                
-
-                int qtdPac = 0;                
-
-                foreach (Paciente paci in pacientes)
-                {
-                    if (pacientes.Count() > 0)
-                    {
-                        qtdPac++;
-                    }
-                }
-
-                if(countEntradaRealizada == qtdPac)
-                {
-              
                     
-                }
-                
             }
-
             return RedirectToAction("Index", "Pedidos");
         }
 

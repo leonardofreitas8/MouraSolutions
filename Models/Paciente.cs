@@ -24,6 +24,7 @@ namespace MouraSolutionsWeb.Models
         public string ConfEscritorio { get; set; }
 
         public DateTime Tma { get; set; }
+        public DateTime DataCheckLab { get; set; }
 
         [Display(Name = "Observação")]
         public string Obs { get; set; }
