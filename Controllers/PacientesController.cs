@@ -104,7 +104,7 @@ namespace MouraSolutionsWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdPaciente,NomePaciente,Protocolo,ConfMoto,ConfClinica,ConfEscritorio,Tma,Obs,statusProtocolo,PedidoId")] Paciente paciente)
+        public async Task<IActionResult> Create([Bind("IdPaciente,NomePaciente,Protocolo,ConfMoto,ConfClinica,ConfEscritorio,Tma,DataCheckLab,Obs,statusProtocolo,PedidoId")] Paciente paciente)
         {
             if (HttpContext.Session.GetString("Usuario") != null)
             {
@@ -118,6 +118,7 @@ namespace MouraSolutionsWeb.Controllers
 
             if (ModelState.IsValid)
             {
+                //paciente.DataCheckLab = DateTime.Now;
                 _context.Add(paciente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -204,7 +205,7 @@ namespace MouraSolutionsWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdPaciente,NomePaciente,Protocolo,ConfMoto,ConfClinica,ConfEscritorio,Tma,Obs,statusProtocolo,PedidoId")] Paciente paciente, List<Paciente> pacientes)
+        public async Task<IActionResult> Edit(int id, [Bind("IdPaciente,NomePaciente,Protocolo,ConfMoto,ConfClinica,ConfEscritorio,Tma,DataCheckLab,Obs,statusProtocolo,PedidoId")] Paciente paciente, List<Paciente> pacientes)
         {
 
             if (HttpContext.Session.GetString("Usuario") != null)

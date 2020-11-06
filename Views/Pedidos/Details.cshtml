@@ -72,71 +72,67 @@
     <dd class="col-10">
         @using (Html.BeginForm("SalvaAlteraPaciente", "Pacientes", FormMethod.Post))
         {
-            @*<table class="table table-striped">*@
-            <table class="table-striped">
+        @*<table class="table table-striped">*@
+        <table class="table-striped">
 
-                <tr>
-                    <th>Id Paciente</th>
-                    <th>Nome Paciente</th>
-                    <th>Protocolo</th>
-                    @*<th>Status Protocolo</th>*@
-                    <th>Check Moto</th>
-                    @*<th>Check Clínica</th>*@
-                    <th>Check Lab.</th>
-                    <th>Status amostra</th>
-                    <th>Hora Motoboy</th>
-                    <th>Hora Lab.</th>
-                    <th>Obs</th>
-                </tr>
+            <tr>
+                <th>Id Paciente</th>
+                <th>Nome Paciente</th>
+                <th>Protocolo</th>
+                @*<th>Status Protocolo</th>*@
+                <th>Check Moto</th>
+                @*<th>Check Clínica</th>*@
+                <th>Check Lab.</th>
+                <th>Status amostra</th>
+                <th>Hora Motoboy</th>
+                <th>Hora Lab.</th>
+                <th>Obs</th>
+            </tr>
 
-                @if (Model.Pacientes != null)
+            @if (Model.Pacientes != null)
                 {
                     for (int i = 0; i < Model.Pacientes.Count(); i++)
                     {
 
-                        <tr id="tr" style='background-color: @(Model.Pacientes[i].ConfMoto == Model.Pacientes[i].Protocolo ? "#e5fbe5" : "#f8d2d2");'>
-                            <td>
-                                @Html.TextBoxFor(x => Model.Pacientes[i].IdPaciente, new { @readonly = "true" })
-                            </td>
-                            <td>
-                                @Html.DisplayTextFor(x => Model.Pacientes[i].NomePaciente)
-                            </td>
-                            <td id="Protocolo">
-                                @Html.TextBoxFor(x => Model.Pacientes[i].Protocolo)
-                            </td>
-                            @*<td>
-                                @Html.DisplayTextFor(x => Model.Pacientes[i].Status)
-                            </td>*@
-                            <td id="ProtocoloMoto">
-                                @Html.TextBoxFor(x => Model.Pacientes[i].ConfMoto)
-                            </td>
-                            <td>
-                                @Html.TextBoxFor(x => Model.Pacientes[i].ConfClinica)
-                            </td>
+            <tr id="tr" style='background-color: @(Model.Pacientes[i].ConfMoto == Model.Pacientes[i].Protocolo ? "#e5fbe5" : "#f8d2d2");'>
+                <td>
+                    @Html.TextBoxFor(x => Model.Pacientes[i].IdPaciente, new { @readonly = "true" })
+                </td>
+                <td>
+                    @Html.DisplayTextFor(x => Model.Pacientes[i].NomePaciente)
+                </td>
+                <td id="Protocolo">
+                    @Html.TextBoxFor(x => Model.Pacientes[i].Protocolo)
+                </td>
+                @*<td>
+                    @Html.DisplayTextFor(x => Model.Pacientes[i].Status)
+                </td>*@
+                <td id="ProtocoloMoto">
+                    @Html.TextBoxFor(x => Model.Pacientes[i].ConfMoto)
+                </td>
+                <td>
+                    @Html.TextBoxFor(x => Model.Pacientes[i].ConfClinica)
+                </td>
 
-                            <td>
-                                @Html.DisplayTextFor(x => Model.Pacientes[i].ConfEscritorio)
-                            </td>
-                            <td>
-                                @Html.DisplayTextFor(x => Model.Pacientes[i].Tma)
-                            </td>
-                            <td>
-                                @Html.DisplayTextFor(x => Model.Pacientes[i].DataCheckLab)
-                            </td>
-                            <td>
-                                @Html.TextBoxFor(x => Model.Pacientes[i].Obs)
-                            </td>
-                        </tr>
+                <td>
+                    @Html.DisplayTextFor(x => Model.Pacientes[i].ConfEscritorio)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(x => Model.Pacientes[i].Tma)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(x => Model.Pacientes[i].DataCheckLab)
+                </td>
+                <td>
+                    @Html.TextBoxFor(x => Model.Pacientes[i].Obs)
+                </td>
+            </tr>
                    }
 
-                    <tr>
-                        <td colspan="4">
-                            <input type="submit" class="btn-primary" value="Confirmar" />
-                        </td>
-                    </tr>
                 }
 
-            </table>
+        </table>
+        <input type="submit" class="btn-primary" value="Confirmar" />
         }
     </dd>
 

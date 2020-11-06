@@ -11,11 +11,17 @@
 
 
 <h4>Bem vindo, @ViewBag.Usuario, veja sua lista de pedidos.</h4>
-<p>
-    <a asp-action="Create">
-        <img src="~/Imagens/NewDoc.png" width="30" />
-    </a>
-</p>
+
+@{
+    if (role == "Admin" && role == "Cliente")
+    {
+        <p>
+            <a asp-action="Create">
+                <img src="~/Imagens/NewDoc.png" width="30" />
+            </a>
+        </p>
+    }
+}
 
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
@@ -30,7 +36,7 @@
 
             <input type="submit" value="Buscar" class="btn btn-success" /> |
             <a asp-action="Index">| Listar todos</a>
-        </p>   
+        </p>
     </div>
 </form>
 
@@ -56,14 +62,14 @@
                 Status
             </th>
             @*<th>
-            Entregar dia
-        </th>*@
+                    Entregar dia
+                </th>*@
             @*<th>
-            Status pedido
-        </th>*@
+                    Status pedido
+                </th>*@
             @*<th>
-            CEP
-        </th>*@
+                    CEP
+                </th>*@
             <th>
                 Observação
             </th>
@@ -130,17 +136,17 @@
                                         @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                     </td>
                                     @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td>*@
+                                            @Html.DisplayFor(modelItem => item.DataRetirada)
+                                        </td>*@
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                     </td>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.CEP)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Obsercao)
                                     </td>
@@ -222,17 +228,17 @@
                                         @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                     </td>
                                     @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td>*@
+                                            @Html.DisplayFor(modelItem => item.DataRetirada)
+                                        </td>*@
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                     </td>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.CEP)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Obsercao)
                                     </td>
@@ -315,17 +321,17 @@
                                     @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                 </td>
                                 @*<td>
-                                    @Html.DisplayFor(modelItem => item.DataRetirada)
-                                </td>*@
+                                        @Html.DisplayFor(modelItem => item.DataRetirada)
+                                    </td>*@
                                 @*<td>
-                                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                </td>*@
+                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                    </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                 </td>
                                 @*<td>
-                                @Html.DisplayFor(modelItem => item.CEP)
-                                </td>*@
+                                    @Html.DisplayFor(modelItem => item.CEP)
+                                    </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Obsercao)
                                 </td>
@@ -458,17 +464,17 @@
                                         @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                     </td>
                                     @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td>*@
+                                            @Html.DisplayFor(modelItem => item.DataRetirada)
+                                        </td>*@
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                     </td>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.CEP)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Obsercao)
                                     </td>
@@ -505,17 +511,17 @@
                                         @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                     </td>
                                     @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td*@>
+                                            @Html.DisplayFor(modelItem => item.DataRetirada)
+                                        </td*@>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                     </td>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.CEP)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Obsercao)
                                     </td>
@@ -557,17 +563,17 @@
                                         @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                     </td>
                                     @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td>*@
+                                            @Html.DisplayFor(modelItem => item.DataRetirada)
+                                        </td>*@
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                     </td>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.CEP)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Obsercao)
                                     </td>
@@ -600,17 +606,17 @@
                                         @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                     </td>
                                     @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td*@>
+                                            @Html.DisplayFor(modelItem => item.DataRetirada)
+                                        </td*@>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                     </td>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.CEP)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Obsercao)
                                     </td>
@@ -647,17 +653,17 @@
                                     @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                 </td>
                                 @*<td>
-                                    @Html.DisplayFor(modelItem => item.DataRetirada)
-                                </td>*@
+                                        @Html.DisplayFor(modelItem => item.DataRetirada)
+                                    </td>*@
                                 @*<td>
-                                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                </td>*@
+                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                    </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                 </td>
                                 @*<td>
-                                @Html.DisplayFor(modelItem => item.CEP)
-                                </td>*@
+                                    @Html.DisplayFor(modelItem => item.CEP)
+                                    </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Obsercao)
                                 </td>
@@ -747,17 +753,17 @@
                                         @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                     </td>
                                     @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td*@>
+                                            @Html.DisplayFor(modelItem => item.DataRetirada)
+                                        </td*@>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                     </td>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.CEP)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Obsercao)
                                     </td>
@@ -788,17 +794,17 @@
                                         @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                     </td>
                                     @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td*@>
+                                            @Html.DisplayFor(modelItem => item.DataRetirada)
+                                        </td*@>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                     </td>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.CEP)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Obsercao)
                                     </td>
@@ -835,17 +841,17 @@
                                         @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                     </td>
                                     @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td>*@
+                                            @Html.DisplayFor(modelItem => item.DataRetirada)
+                                        </td>*@
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                     </td>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.CEP)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Obsercao)
                                     </td>
@@ -876,17 +882,17 @@
                                         @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                     </td>
                                     @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td*@>
+                                            @Html.DisplayFor(modelItem => item.DataRetirada)
+                                        </td*@>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                     </td>
                                     @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.CEP)
+                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Obsercao)
                                     </td>
@@ -920,17 +926,17 @@
                                     @Html.DisplayFor(modelItem => item.NomeSolicitante)
                                 </td>
                                 @*<td>
-                                    @Html.DisplayFor(modelItem => item.DataRetirada)
-                                </td>*@
+                                        @Html.DisplayFor(modelItem => item.DataRetirada)
+                                    </td>*@
                                 @*<td>
-                                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                </td>*@
+                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                                    </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.statusPedido.Status)
                                 </td>
                                 @*<td>
-                                @Html.DisplayFor(modelItem => item.CEP)
-                                </td>*@
+                                    @Html.DisplayFor(modelItem => item.CEP)
+                                    </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Obsercao)
                                 </td>
@@ -948,28 +954,28 @@
 
         }
 
-    </tbody>            
+    </tbody>
 </table>
 
 
-            @*@{
-                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-                }*@
+@*@{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }*@
 
-            @*<a asp-action="Index"
-                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                   asp-route-pageNumber="@(Model.PageIndex - 1)"
-                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                   class="btn btn-primary @prevDisabled">
-                    < Anterior
-                </a>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                   asp-route-pageNumber="@(Model.PageIndex + 1)"
-                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                   class="btn btn-primary @nextDisabled">
-                    Próxima >
-                </a>*@
+@*<a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-primary @prevDisabled">
+        < Anterior
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-primary @nextDisabled">
+        Próxima >
+    </a>*@
 
 
