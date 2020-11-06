@@ -15,11 +15,11 @@
 @{
     if (role == "Admin" && role == "Cliente")
     {
-        <p>
-            <a asp-action="Create">
-                <img src="~/Imagens/NewDoc.png" width="30" />
-            </a>
-        </p>
+    <p>
+        <a asp-action="Create">
+            <img src="~/Imagens/NewDoc.png" width="30" />
+        </a>
+    </p>
     }
 }
 
@@ -34,7 +34,7 @@
             @Html.TextBox("searchString")
 
 
-            <input type="submit" value="Buscar" class="btn btn-success" /> |
+            <input type="submit" value="Buscar" class="btn btn-success" />
             <a asp-action="Index">| Listar todos</a>
         </p>
     </div>
@@ -83,7 +83,7 @@
 
         @if (role == "Motoboy")
         {
-            @foreach (var item in Model)
+        @foreach (var item in Model)
             {
 
                 if (item.Pacientes != null)
@@ -116,279 +116,279 @@
                         {
                             if (paciente.Obs == "Urgente")
                             {
-                                <tr style="background-color:orangered">
+        <tr style="background-color:orangered">
 
-                                    <td>
-                                        @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
-                                        <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
-                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                    </td>
-                                    @*<td>
-                                            @Html.DisplayFor(modelItem => item.DataRetirada)
-                                        </td>*@
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                    </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.CEP)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Obsercao)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                    </td>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
+                <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
 
 
-                                </tr>
+        </tr>
                                 //Endereço
-                                <tr class="border-bottom">
-                                    @if (item.Cliente.Enderecos != null)
+        <tr class="border-bottom">
+            @if (item.Cliente.Enderecos != null)
                                     {
-                                        @foreach (var itemm in item.Cliente.Enderecos)
+            @foreach (var itemm in item.Cliente.Enderecos)
                                         {
-                                            <td style="background-color: lightblue">Endereço:</td>
-                                            @*<tr>*@
-                                            <td>
-                                                @Html.DisplayFor(modelItem => itemm.Tipo_Endereco)
-                                            </td>
-                                            <td>
-                                                <b>@Html.DisplayFor(modelItem => itemm.Rua)</b>
-                                            </td>
-                                            <td>
-                                                <b>@Html.DisplayFor(modelItem => itemm.Numero)</b>
-                                            </td>
-                                            <td>
-                                                <a href=@Html.DisplayNameFor(modelItem => itemm.Complemento)>Rota</a>
-                                            </td>
-                                            <td>
-                                                <b>@Html.DisplayFor(modelItem => itemm.Bairro)</b>
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => itemm.CEP)
-                                            </td>
+            <td style="background-color: lightblue">Endereço:</td>
+            @*<tr>*@
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Tipo_Endereco)
+            </td>
+            <td>
+                <b>@Html.DisplayFor(modelItem => itemm.Rua)</b>
+            </td>
+            <td>
+                <b>@Html.DisplayFor(modelItem => itemm.Numero)</b>
+            </td>
+            <td>
+                <a href=@Html.DisplayNameFor(modelItem => itemm.Complemento)>Rota</a>
+            </td>
+            <td>
+                <b>@Html.DisplayFor(modelItem => itemm.Bairro)</b>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => itemm.CEP)
+            </td>
 
                                             if (ViewBag.Role == "Admin" && ViewBag.Role == "Cliente")
                                             {
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => itemm.Telefone_Celular)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => itemm.Telefone_Comercial)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => itemm.Telefone_Recado)
-                                                </td>
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Telefone_Celular)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Telefone_Comercial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Telefone_Recado)
+            </td>
 
                                             }
 
-                                            <td>
-                                                @Html.DisplayFor(modelItem => itemm.Status)
-                                            </td>
-                                            <td></td>
-                                            @*</tr>*@
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Status)
+            </td>
+            <td></td>
+            @*</tr>*@
                                         }
                                     }
-                                </tr>
+        </tr>
 
                             }
                             else
                             {
-                                <tr>
-                                    <td>
-                                        @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
-                                        <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
-                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                    </td>
-                                    @*<td>
-                                            @Html.DisplayFor(modelItem => item.DataRetirada)
-                                        </td>*@
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                    </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.CEP)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Obsercao)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                    </td>
+        <tr>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
+                <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
 
 
-                                </tr>
+        </tr>
                                 //Endereço
-                                <tr class="border-bottom">
-                                    @if (item.Cliente.Enderecos != null)
+        <tr class="border-bottom">
+            @if (item.Cliente.Enderecos != null)
                                     {
-                                        @foreach (var itemm in item.Cliente.Enderecos)
+            @foreach (var itemm in item.Cliente.Enderecos)
                                         {
-                                            <td style="background-color: lightblue">Endereço:</td>
-                                            @*<tr>*@
-                                            <td>
-                                                @Html.DisplayFor(modelItem => itemm.Tipo_Endereco)
-                                            </td>
-                                            <td>
-                                                <b>@Html.DisplayFor(modelItem => itemm.Rua)</b>
-                                            </td>
-                                            <td>
-                                                <b>@Html.DisplayFor(modelItem => itemm.Numero)</b>
-                                            </td>
-                                            <td>
-                                                <a href=@Html.DisplayFor(modelItem => itemm.Complemento)>Rota</a>
-                                            </td>
-                                            <td>
-                                                <b>@Html.DisplayFor(modelItem => itemm.Bairro)</b>
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => itemm.CEP)
-                                            </td>
+            <td style="background-color: lightblue">Endereço:</td>
+            @*<tr>*@
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Tipo_Endereco)
+            </td>
+            <td>
+                <b>@Html.DisplayFor(modelItem => itemm.Rua)</b>
+            </td>
+            <td>
+                <b>@Html.DisplayFor(modelItem => itemm.Numero)</b>
+            </td>
+            <td>
+                <a href=@Html.DisplayFor(modelItem => itemm.Complemento)>Rota</a>
+            </td>
+            <td>
+                <b>@Html.DisplayFor(modelItem => itemm.Bairro)</b>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => itemm.CEP)
+            </td>
 
                                             if (ViewBag.Role == "Admin" && ViewBag.Role == "Cliente")
                                             {
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => itemm.Telefone_Celular)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => itemm.Telefone_Comercial)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => itemm.Telefone_Recado)
-                                                </td>
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Telefone_Celular)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Telefone_Comercial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Telefone_Recado)
+            </td>
 
                                             }
 
-                                            <td>
-                                                @Html.DisplayFor(modelItem => itemm.Status)
-                                            </td>
-                                            <td></td>
-                                            @*</tr>*@
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Status)
+            </td>
+            <td></td>
+            @*</tr>*@
                                         }
                                     }
-                                </tr>
+        </tr>
                             }
                             break;
                         }
                         else
                         {
-                            <tr>
-                                <td>
-                                    @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
-                                    <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /> </a>
-                                    @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                </td>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td>*@
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                </td>
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Obsercao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                </td>
+        <tr>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
+                <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /> </a>
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
 
-                            </tr>
+        </tr>
                             //Endereço
-                            <tr class="border-bottom">
-                                @if (item.Cliente.Enderecos != null)
+        <tr class="border-bottom">
+            @if (item.Cliente.Enderecos != null)
                                 {
-                                    @foreach (var itemm in item.Cliente.Enderecos)
+            @foreach (var itemm in item.Cliente.Enderecos)
                                     {
-                                        <td style="background-color: lightblue">Endereço:</td>
-                                        @*<tr>*@
-                                        <td>
-                                            @Html.DisplayFor(modelItem => itemm.Tipo_Endereco)
-                                        </td>
-                                        <td>
-                                            <b>@Html.DisplayFor(modelItem => itemm.Rua)</b>
-                                        </td>
-                                        <td>
-                                            <b>@Html.DisplayFor(modelItem => itemm.Numero)</b>
-                                        </td>
-                                        <td>
-                                            <a href=@Html.DisplayFor(modelItem => itemm.Complemento)>Rota</a>
-                                        </td>
-                                        <td>
-                                            <b>@Html.DisplayFor(modelItem => itemm.Bairro)</b>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => itemm.CEP)
-                                        </td>
+            <td style="background-color: lightblue">Endereço:</td>
+            @*<tr>*@
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Tipo_Endereco)
+            </td>
+            <td>
+                <b>@Html.DisplayFor(modelItem => itemm.Rua)</b>
+            </td>
+            <td>
+                <b>@Html.DisplayFor(modelItem => itemm.Numero)</b>
+            </td>
+            <td>
+                <a href=@Html.DisplayFor(modelItem => itemm.Complemento)>Rota</a>
+            </td>
+            <td>
+                <b>@Html.DisplayFor(modelItem => itemm.Bairro)</b>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => itemm.CEP)
+            </td>
 
                                         if (ViewBag.Role == "Admin" && ViewBag.Role == "Cliente")
                                         {
-                                            <td>
-                                                @Html.DisplayFor(modelItem => itemm.Telefone_Celular)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => itemm.Telefone_Comercial)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => itemm.Telefone_Recado)
-                                            </td>
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Telefone_Celular)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Telefone_Comercial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Telefone_Recado)
+            </td>
 
                                         }
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => itemm.Status)
-                                        </td>
-                                        <td></td>
-                                        @*</tr>*@
+            <td>
+                @Html.DisplayFor(modelItem => itemm.Status)
+            </td>
+            <td></td>
+            @*</tr>*@
                                     }
                                 }
-                            </tr>
+        </tr>
 
                         }
 
@@ -403,7 +403,7 @@
         {
             //.Where(s => s.statusPedido.Status == "Novo")
 
-            @foreach (var item in Model)
+        @foreach (var item in Model)
             {
                 if (item.Pacientes != null)
                 {
@@ -450,87 +450,87 @@
                         {
                             if (paciente.Obs == "Urgente") // Verifica se há algum paciente urgente para marcar em vermelho
                             {
-                                <tr style="background-color:palevioletred">
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                    </td>
-                                    @*<td>
-                                            @Html.DisplayFor(modelItem => item.DataRetirada)
-                                        </td>*@
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                    </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.CEP)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Obsercao)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                    </td>
-                                    <td>
-                                        <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |
-                                        <a asp-action="Details" asp-route-id="@item.Id">Pacientes</a> |
-                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                    </td>
+        <tr style="background-color:palevioletred">
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Pacientes</a> |
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
 
-                                </tr>
+        </tr>
                             }
                             else
                             {
                                 //Tudo coletado pelo motoboy AMARELO
-                                <tr style="background-color:yellow">
-                                    <td>
-                                        @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
-                                        <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
-                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                    </td>
-                                    @*<td>
-                                            @Html.DisplayFor(modelItem => item.DataRetirada)
-                                        </td*@>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                    </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.CEP)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Obsercao)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                    </td>
+        <tr style="background-color:yellow">
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
+                <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td*@>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
 
 
-                                </tr>
+        </tr>
                             }
 
                             break;
@@ -542,90 +542,90 @@
                         {
                             if (paciente.Obs == "Urgente") // Verifica se há algum paciente urgente para marcar em vermelho
                             {
-                                <tr style="background-color:palevioletred">
+        <tr style="background-color:palevioletred">
 
-                                    <td>
-                                        @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
-                                        <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
-                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                    </td>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
+                <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                    </td>
-                                    @*<td>
-                                            @Html.DisplayFor(modelItem => item.DataRetirada)
-                                        </td>*@
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                    </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.CEP)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Obsercao)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                    </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
 
 
-                                </tr>
+        </tr>
                             }
                             else
                             {
                                 //Tudo conferido pelo escritório VERDE
-                                <tr style="background-color:lightgreen">
-                                    <td>
-                                        @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
-                                        <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
-                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                    </td>
-                                    @*<td>
-                                            @Html.DisplayFor(modelItem => item.DataRetirada)
-                                        </td*@>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                    </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.CEP)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Obsercao)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                    </td>
+        <tr style="background-color:lightgreen">
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
+                <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td*@>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
 
 
-                                </tr>
+        </tr>
                             }
 
                             break;
@@ -634,45 +634,45 @@
                         else
                         {
 
-                            <tr>
-                                <td>
-                                    @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
-                                    <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
-                                    @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                </td>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td>*@
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                </td>
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Obsercao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                </td>
+        <tr>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |*@
+                <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
 
 
-                            </tr>
+        </tr>
 
                         }
                     }
@@ -686,7 +686,7 @@
         @if (role == "Admin")
         {
 
-            @foreach (var item in Model)
+        @foreach (var item in Model)
             {
 
                 if (item.Pacientes != null)
@@ -734,84 +734,84 @@
                             if (paciente.Obs == "Urgente") // Verifica se há algum paciente urgente para marcar em vermelho
                             {
                                 //Tudo coletado pelo motoboy AMARELO
-                                <tr style="background-color:yellow">
-                                    <td>
-                                        <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a>
-                                        <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
-                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                    </td>
-                                    @*<td>
-                                            @Html.DisplayFor(modelItem => item.DataRetirada)
-                                        </td*@>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                    </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.CEP)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Obsercao)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                    </td>
-                                </tr>
+        <tr style="background-color:yellow">
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a>
+                <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td*@>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
+        </tr>
                             }
                             else
                             {
-                                <tr>
-                                    <td>
-                                        <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a>
-                                        <a asp-action="Details" asp-route-id="@item.Id"> <img width="50" src="~/Imagens/PacienteIco2.jpg" /> </a>
-                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                    </td>
+        <tr>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a>
+                <a asp-action="Details" asp-route-id="@item.Id"> <img width="50" src="~/Imagens/PacienteIco2.jpg" /> </a>
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                    </td>
-                                    @*<td>
-                                            @Html.DisplayFor(modelItem => item.DataRetirada)
-                                        </td*@>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                    </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.CEP)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Obsercao)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                    </td>
-                                </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td*@>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
+        </tr>
                             }
 
                             break;
@@ -822,84 +822,84 @@
                         {
                             if (paciente.Obs == "Urgente") // Verifica se há algum paciente urgente para marcar em vermelho
                             {
-                                <tr style="background-color:palevioletred">
-                                    <td>
-                                        <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |
-                                        <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
-                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                    </td>
-                                    @*<td>
-                                            @Html.DisplayFor(modelItem => item.DataRetirada)
-                                        </td>*@
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                    </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.CEP)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Obsercao)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                    </td>
-                                </tr>
+        <tr style="background-color:palevioletred">
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
+        </tr>
                             }
                             else
                             {
                                 //Tudo conferido pelo escritório VERDE
-                                <tr style="background-color:lightgreen">
-                                    <td>
-                                        <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a>
-                                        <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
-                                        @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                    </td>
-                                    @*<td>
-                                            @Html.DisplayFor(modelItem => item.DataRetirada)
-                                        </td*@>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                    </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.CEP)
-                                        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Obsercao)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                    </td>
-                                </tr>
+        <tr style="background-color:lightgreen">
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a>
+                <a asp-action="Details" asp-route-id="@item.Id"><img width="50" src="~/Imagens/PacienteIco2.jpg" /></a>
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td*@>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
+        </tr>
                             }
 
                             break;
@@ -907,43 +907,43 @@
                         }
                         else
                         {
-                            <tr style="background-color: lightgreen">
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a>
-                                    <a asp-action="Details" asp-route-id="@item.Id"> <img width="50" src="~/Imagens/PacienteIco2.jpg" /> </a>
-                                    @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NomeSolicitante)
-                                </td>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.DataRetirada)
-                                    </td>*@
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
-                                    </td>*@
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.statusPedido.Status)
-                                </td>
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.CEP)
-                                    </td>*@
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Obsercao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
-                                </td>
-                            </tr>
+        <tr style="background-color: lightgreen">
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Alterar</a>
+                <a asp-action="Details" asp-route-id="@item.Id"> <img width="50" src="~/Imagens/PacienteIco2.jpg" /> </a>
+                @*<a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Motoboy.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedidoRetirada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSolicitante)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DataRetirada)
+                </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Cliente.Enderecos)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.statusPedido.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.CEP)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Obsercao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.ZonaNome)
+            </td>
+        </tr>
                         }
 
                     }
