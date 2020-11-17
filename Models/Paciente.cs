@@ -29,6 +29,9 @@ namespace MouraSolutionsWeb.Models
         [Display(Name = "Observação")]
         public string Obs { get; set; }
 
+        [Display(Name = "Usuário Check")]
+        public string NomeUsuCheck { get; set; }
+
         [Display(Name = "Status Protocolo")]
         public int statusProtocolo { get; set; }
         public StatusProtocolo Status { get; set; }

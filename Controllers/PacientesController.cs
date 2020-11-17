@@ -104,7 +104,7 @@ namespace MouraSolutionsWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdPaciente,NomePaciente,Protocolo,ConfMoto,ConfClinica,ConfEscritorio,Tma,DataCheckLab,Obs,statusProtocolo,PedidoId")] Paciente paciente)
+        public async Task<IActionResult> Create([Bind("IdPaciente,NomePaciente,Protocolo,ConfMoto,ConfClinica,ConfEscritorio,Tma,DataCheckLab,NomeUsuCheck,Obs,statusProtocolo,PedidoId")] Paciente paciente)
         {
             if (HttpContext.Session.GetString("Usuario") != null)
             {
@@ -191,6 +191,7 @@ namespace MouraSolutionsWeb.Controllers
                         {
                             paciente.ConfEscritorio = "Confirmado Lab.";
                             paciente.DataCheckLab = DateTime.Now;
+                            paciente.NomeUsuCheck = HttpContext.Session.GetString("Usuario").Trim(' ');
 
                     }   
 
@@ -205,7 +206,7 @@ namespace MouraSolutionsWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdPaciente,NomePaciente,Protocolo,ConfMoto,ConfClinica,ConfEscritorio,Tma,DataCheckLab,Obs,statusProtocolo,PedidoId")] Paciente paciente, List<Paciente> pacientes)
+        public async Task<IActionResult> Edit(int id, [Bind("IdPaciente,NomePaciente,Protocolo,ConfMoto,ConfClinica,ConfEscritorio,Tma,DataCheckLab,NomeUsuCheck,Obs,statusProtocolo,PedidoId")] Paciente paciente, List<Paciente> pacientes)
         {
 
             if (HttpContext.Session.GetString("Usuario") != null)
